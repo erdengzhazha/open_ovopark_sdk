@@ -317,4 +317,135 @@ public class ApiFace extends BaseClient{
 		}
 		return resContent;
 	}
+	
+	/**
+	 * open.face.addUser （单个用户注册人脸用户至万店掌人脸平台）
+	 * @param orgid 企业id 
+	 * @param departno 分组id(即groupid)
+	 * @param userid 开发者提供的会员id(第三方系统自行生成)，唯一
+	 * @param thirdpicurl 开发者提供的公网可以访问的图片url地址
+	 * @param username 用户姓名
+	 * @param memberType 用户类别(0：新顾客；1：会员；2：店员)
+	 * @param mobilephone 手机号
+	 * @param gender 性别,主要做校准使用(0:男,1：女)
+	 * @param checkrepeat 验证手机号是否重复, 需要验证为1，不需要验证为0)
+	 * @param cardNumber 卡号
+	 * @param version 默认版本v1，建议用v2
+	 * @return
+	 */
+	public String addUser(Integer orgid,Integer departno,
+			String userid,String thirdpicurl,String username,
+			String memberType,String mobilephone,String gender,
+			Integer checkrepeat,String cardNumber,String version) {
+		sort.clear();
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "departno",departno.toString());
+			ovoParkUtils.setNoMustSort(sort, "checkrepeat", checkrepeat.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "userid", userid);
+		ovoParkUtils.setMustSort(sort, "thirdpicurl", thirdpicurl);
+		ovoParkUtils.setNoMustSort(sort, "username", username);
+		ovoParkUtils.setNoMustSort(sort, "memberType", memberType);
+		ovoParkUtils.setNoMustSort(sort, "mobilephone", mobilephone);
+		if(gender.equals("0")||gender.equals("1")) {
+			ovoParkUtils.setNoMustSort(sort, "gender", gender);
+		}else {
+			System.out.println("注意：gender参数值不合法！");
+		}
+		ovoParkUtils.setNoMustSort(sort, "cardNumber", cardNumber);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_addUser);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	/**
+	 * open.face.deleteUser （删除用户所有人脸集合（包含历史抓拍记录））
+	 * @param orgid 企业id
+	 * @param departno 分组id
+	 * @param userid 三方用户编号
+	 * @param version 默认版本v1
+	 * @return
+	 */
+	public String deleteUser(Integer orgid,Integer departno,String userid,String version) {
+		sort.clear();
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "departno",departno.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "userid", userid);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_deleteUser);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	
+	/**
+	 * （给某个用户添加一张人脸照片）
+	 * @param orgid 企业id
+	 * @param departno 分组id
+	 * @param userid 三方用户编号
+	 * @param thirdpicurl 人脸头像 url
+	 * @param version 默认版本v1
+	 * @return
+	 */
+	public String addFaceUrl(Integer orgid,Integer departno,String userid,String thirdpicurl,String version) {
+		sort.clear();
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "departno",departno.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "userid",userid);
+		ovoParkUtils.setMustSort(sort, "thirdpicurl",thirdpicurl);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_addFaceUrl);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	
 }
