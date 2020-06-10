@@ -447,5 +447,324 @@ public class ApiFace extends BaseClient{
 		return resContent;
 	}
 	
+	/**
+	 * 根据三方用户编号及人脸编号更新人脸照片
+	 * @param orgid 企业id
+	 * @param departno 分组id
+	 * @param userid 三方用户编号
+	 * @param thirdpicurl 人脸照片URL地址
+	 * @param faceid  人脸id
+	 * @param version 默认版本v1
+	 * @return
+	 */
+	public String updateFaceUrl(Integer orgid,Integer departno,String userid,String thirdpicurl,Long faceid,String version) {
+		sort.clear();
+		
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "departno",departno.toString());
+			ovoParkUtils.setMustSort(sort, "faceid", faceid.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型或者long类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "thirdpicurl", thirdpicurl);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_updateFaceUrl);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
 	
+	/**
+	 * 根据三方用户编号和人脸照片编号删除指定人脸照片
+	 * @param orgid 企业id
+	 * @param departno 分组id
+	 * @param userid 三方用户编号
+	 * @param faceid 人脸id
+	 * @param version 默认版本v1
+	 * @return
+	 */
+	public String deleteFaceUrl (Integer orgid,Integer departno,String userid,Long faceid,String version) {
+		sort.clear();
+		
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "departno",departno.toString());
+			ovoParkUtils.setMustSort(sort, "faceid",faceid.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型或者long类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "userid", userid);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_deleteFaceUrl);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	/**
+	 * 根据三方会员编号获取所有的人脸照片信息
+	 * @param orgid 企业id
+	 * @param departno 分组id
+	 * @param userid 三方用户编号
+	 * @param version
+	 * @return
+	 */
+	public String getFaceUrls(Integer orgid,Integer departno,String userid,String version) {
+		sort.clear();
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "departno",departno.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "userid", userid);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_getFaceUrls);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	/**
+	 * 查询设备多分组场景配置
+	 * @param orgid 开放平台企业id
+	 * @param -deviceMac 设备mac
+	 * @param version
+	 * @return
+	 */
+	public String getDeviceGroupsConfig(Integer orgid,String deviceMac,String version) {
+		sort.clear();
+		
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setNoMustSort(sort, "deviceMac",deviceMac);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_getDeviceGroupsConfig);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	/**
+	 * 添加设备分组配置
+	 * @param orgid 开放平台企业id
+	 * @param groupid 分组id（查询分组接口获取）
+	 * @param deviceMac 设备Mac
+	 * @param version 默认版本v1
+	 * @return
+	 */
+	public String addDeviceGroup(Integer orgid,Integer groupid,String deviceMac,String version) {
+		sort.clear();
+		
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "groupid",groupid.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "deviceMac", deviceMac);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_addDeviceGroup);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	/**
+	 * 更新设备分组配置
+	 * @param orgid 开放平台企业id
+	 * @param groupid 原始分组id
+	 * @param groupid2 更新后的分组id
+	 * @param deviceMac 设备mac
+	 * @param version 默认版本v1
+	 * @return
+	 */
+	public String updateDeviceGroup(Integer orgid,Integer groupid,Integer groupid2,String deviceMac,String version) {
+		sort.clear();
+		
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "groupid",groupid.toString());
+			ovoParkUtils.setMustSort(sort, "groupid2",groupid2.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "deviceMac", deviceMac);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_updateDeviceGroup);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	/**
+	 * 删除设备分组配置
+	 * @param orgid 开放平台企业id
+	 * @param groupid 分组id
+	 * @param deviceMac 设备mac
+	 * @param version 默认版本v1
+	 * @return
+	 */
+	public String deleteDeviceGroup(Integer orgid,Integer groupid,String deviceMac,String version) {
+		sort.clear();
+		
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "groupid",groupid.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "deviceMac", deviceMac);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_deleteDeviceGroup);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	/**
+	 * 根据照片搜索指定分组内用户
+	 * @param orgid 开放平台企业id
+	 * @param groupid 分组id
+	 * @param thirdpicurl 照片地址
+	 * @param threshold 相似度阀值
+	 * @param version 默认版本v1
+	 * @return
+	 */
+	public String serchGroupUser(Integer orgid,Integer groupid,String thirdpicurl,String threshold,String version) {
+		sort.clear();
+		
+		try {
+			ovoParkUtils.setMustSort(sort, "orgid",orgid.toString());
+			ovoParkUtils.setMustSort(sort, "groupid",groupid.toString());
+		} catch (Exception e1) {
+			System.out.println("注意：int类型的参数不能传递null");
+		}
+		ovoParkUtils.setMustSort(sort, "thirdpicurl", thirdpicurl);
+		ovoParkUtils.setNoMustSort(sort, "threshold", threshold);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_serchGroupUser);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
+	
+	/**
+	 * 人脸检测
+	 * @param url 开发者提供的公网可以访问的图片url地址
+	 * @param version 默认版本 v1
+	 * @return
+	 */
+	public String detect(String url,String version) {
+		sort.clear();
+		ovoParkUtils.setMustSort(sort, "url",url);
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,FaceConsts.method_open_face_detect);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
+	}
 }
