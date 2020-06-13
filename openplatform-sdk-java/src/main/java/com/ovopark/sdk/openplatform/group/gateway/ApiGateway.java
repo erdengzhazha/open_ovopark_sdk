@@ -208,9 +208,9 @@ public class ApiGateway extends BaseClient{
 	 * @param version 默认版本v1
 	 * @return
 	 */
-	public String getRoleAndUsersAsConfig(Integer depId,String version) {
+	public String getRoleAndUsersAsConfig(Integer deptId,String version) {
 	    sort.clear();
-	    ovoParkUtils.setMustSort(sort, "depId",depId.toString());
+	    ovoParkUtils.setMustSort(sort, "deptId",deptId.toString());
 	    GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
 	    if(version!=null&&version=="v2") {
 	        reqHandler.setVersion(version);
@@ -218,7 +218,7 @@ public class ApiGateway extends BaseClient{
 	        reqHandler.setVersion("v1");
 	    }
 	    setCommonParameters(reqHandler);
-	    reqHandler.setHead(sort,GatewayConsts.method_open_gateway_syscEnterpriseCode);
+	    reqHandler.setHead(sort,GatewayConsts.method_open_shopweb_role_getRoleAndUsersAsConfig);
 	    //ovoParkUtils.isSetAuthenticator(reqHandler, authenticator);
 	    OkClient okClient = OkClient.getOkHttpClient(); 
 	    String resContent = null;

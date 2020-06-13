@@ -50,7 +50,7 @@ public class GwInitRequestHandler extends RequestHandler{
 	} 
 	
 	/**
-	 * 设置报文头
+	 * 设置请求参数
 	 * @param sortedMap
 	 * @param key
 	 * @param secret

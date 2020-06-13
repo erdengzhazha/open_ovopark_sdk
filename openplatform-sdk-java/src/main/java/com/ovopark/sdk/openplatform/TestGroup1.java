@@ -37,7 +37,7 @@ public class TestGroup1 extends Thread{
 		//同步企业代码
 		System.out.println(apiGateway.getSyscEnterpriseCode(262,262,"262",null));
 		System.out.println("\n");
-		//获取对应角色列表对应的人员列表
+		//获取对应角色列表对应的人员列表›
 		System.out.println(apiGateway.getRoleAndUsersAsConfig(7192, null));
 		
 	}

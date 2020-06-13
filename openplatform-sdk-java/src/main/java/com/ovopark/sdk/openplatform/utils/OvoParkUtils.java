@@ -37,7 +37,7 @@ public class OvoParkUtils {
 	 */
 	public void setNoMustSort(SortedMap<String, Object> sort,String key,Object value) {
 		if(value != null) {
-			 sort.put(key, value);
+			 sort.put(key, value.toString());
 		}
 	}
 	
@@ -47,11 +47,11 @@ public class OvoParkUtils {
 	 * @param key
 	 * @param value
 	 */
-	public void setMustSort(SortedMap<String, Object> sort,String key,String value) {
+	public void setMustSort(SortedMap<String, Object> sort,String key,Object value) {
 		if(value== null) {
 			sort.put(key, "");
 		}else {
-			sort.put(key, value);
+			sort.put(key, value.toString());
 		}
 	}
 	
