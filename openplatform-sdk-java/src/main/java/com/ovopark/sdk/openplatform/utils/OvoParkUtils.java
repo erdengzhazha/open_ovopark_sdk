@@ -1,13 +1,16 @@
 package com.ovopark.sdk.openplatform.utils;
 
+import java.io.IOException;
 import java.util.SortedMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ovopark.sdk.openplatform.client.BaseClient;
 import com.ovopark.sdk.openplatform.handle.GwInitRequestHandler;
+import com.ovopark.sdk.openplatform.http.OkClient;
 
-public class OvoParkUtils {
+public class OvoParkUtils extends BaseClient{
 	/**
 	 * 获取编码字符集
 	 * @param request
@@ -66,5 +69,31 @@ public class OvoParkUtils {
 		}else {
 			geGwInitRequestHandler.setApplicationKey("");
 		}
+	}
+	
+	/**
+	 * 公共部分的工具方法
+	 * 目的：设置请求参数，并发出http请求，返回值
+	 * @param version
+	 * @param method
+	 * @return
+	 */
+	public String publicUtil(String version,String method,SortedMap<String, Object>  sort) {
+		GwInitRequestHandler reqHandler=GwInitRequestHandler.getGwInitRequestHandler(); 
+		if(version!=null&&version=="v2") {
+			reqHandler.setVersion(version);
+		}else {
+			reqHandler.setVersion("v1");
+		}
+		setCommonParameters(reqHandler);
+		reqHandler.setHead(sort,method);
+		OkClient okClient = OkClient.getOkHttpClient(); 
+		String resContent = null;
+		try {
+			resContent = okClient.doPost(reqHandler);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resContent;
 	}
 }
